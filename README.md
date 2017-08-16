@@ -27,7 +27,7 @@ Criar um aplicativo de filmes que consulte a API do TheMovieDatabase.
 ### 5) [Trailers de filme](https://developers.themoviedb.org/3/movies/get-movie-videos)
 - Youtube
 
-### 6) Busca de filmes
+### 6) [Busca de filmes](https://developers.themoviedb.org/3/getting-started/search-and-query-for-details)
 
 *****
 
