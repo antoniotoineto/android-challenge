@@ -9,8 +9,8 @@ Criar um aplicativo de filmes que consulte a API do TheMovieDatabase.
 ## Navegação de filmes usando a [TheMovieDatabase API](https://www.themoviedb.org/documentation/api)
 
 ### <a name="filmes_cartaz" />1) Listagem de [filmes que estão em cartaz](https://developers.themoviedb.org/3/movies/get-now-playing)
-- Use o parâmetro `language` com o valor pt (não há suporte para pt_BR) ou en.
-- Campos sugeridos: Title (caso use a lingua `pt`), name, release date e vote average.
+- Use o parâmetro `language` com o valor pt-BR ou en.
+- Campos sugeridos: Title (caso use a língua `pt-BR`), name, release date e vote average.
 - Mostre uma imagem, usando os campos `backdrop_path` ou `poster_path`
     - Url para Imagens podem ser montadas de acordo com a [documentação](https://developers.themoviedb.org/3/configuration)
 - A exibição pode ser em formato de lista ou grade
