@@ -26,6 +26,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
 
+        setTitle(R.string.title_details);
+
         movie_id = getIntent().getExtras().getInt("movie_id");
 
         apiInterface = APIClient.getClient().create(APIInterface.class);
