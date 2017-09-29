@@ -5,17 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.mc.mimo.moviechallenge.view.search.MovieSearchFragment"
+    android:name="com.mc.mimo.moviechallenge.view.MovieSearchFragment"
     android:orientation="vertical"
     >
-
-    <TextView
-        android:text="@string/title_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="5dp"
-        android:textAppearance="?attr/textAppearanceListItem"/>
-
 
     <LinearLayout
         android:orientation="horizontal"
@@ -33,7 +25,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ok" />
-
 
     </LinearLayout>
 
@@ -53,14 +44,12 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listSearch"
-        android:name="com.mc.mimo.moviechallenge.view.MovieSearchFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/fragment_moviesearch"
         android:layout_marginTop="20dp"
         />
 
-    <!--android:visibility="gone"-->
 </LinearLayout>
 
 

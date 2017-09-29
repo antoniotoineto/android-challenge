@@ -25,18 +25,22 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    setTitle(R.string.title_home);
                     changToFragment(1);
                     movieListFragment.changeMovieListDataSet(1);
                     return true;
                 case R.id.navigation_popular:
+                    setTitle(R.string.title_popular);
                     changToFragment(1);
                     movieListFragment.changeMovieListDataSet(2);
                     return true;
                 case R.id.navigation_toprated:
+                    setTitle(R.string.title_toprated);
                     changToFragment(1);
                     movieListFragment.changeMovieListDataSet(3);
                     return true;
                 case R.id.navigation_search:
+                    setTitle(R.string.title_search);
                     changToFragment(2);
                     return true;
             }
@@ -55,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.content, movieListFragment).commit();
+
+        setTitle(R.string.title_home);
     }
 
     private void changToFragment(int newFragment) {

@@ -31,9 +31,10 @@ public class MovieSearchFragment extends Fragment {
 
     private List<Result> results = new ArrayList<>();
     private MovieSearchAdapter adapter = new MovieSearchAdapter(results);
+
     private APIInterface apiInterface;
 
-    private View listView;
+    private RecyclerView listView;
     private View loadingPanel;
     private EditText inputSearch;
 
@@ -64,17 +65,19 @@ public class MovieSearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_moviesearch_list, container, false);
+        this.listView = view.findViewById(R.id.listSearch);
 
-        if (view instanceof RecyclerView) {
+        if (this.listView instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                this.listView.setLayoutManager(new LinearLayoutManager(context));
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                this.listView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MovieSearchAdapter(results));
+            this.listView.setAdapter(adapter);
         }
+
+
 
         this.listView = view.findViewById(R.id.listSearch);
         this.loadingPanel = view.findViewById(R.id.loadingPanelSearch);
