@@ -27,22 +27,17 @@ public class MovieListFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
+    private int listType = 1;
 
     private List<Result> results = new ArrayList<>();
     private MovieListAdapter adapter = new MovieListAdapter(results);
 
+
     private APIInterface apiInterface;
 
-
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public MovieListFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static MovieListFragment newInstance(int columnCount) {
         MovieListFragment fragment = new MovieListFragment();
         Bundle args = new Bundle();
@@ -57,22 +52,7 @@ public class MovieListFragment extends Fragment {
 
         apiInterface = APIClient.getClient().create(APIInterface.class);
 
-        Call<MovieList> call = apiInterface.doGetNowPlaingList("1", "pt-BR");
-
-
-        call.enqueue(new Callback<MovieList>() {
-            @Override
-            public void onResponse(Call<MovieList> call, Response<MovieList> response) {
-                results.clear();
-                results.addAll(response.body().results);
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Call<MovieList> call, Throwable t) {
-                call.cancel();
-            }
-        });
+        changeMovieListDataSet(this.listType);
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
@@ -84,7 +64,6 @@ public class MovieListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nowplaying_list, container, false);
 
-        // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
@@ -121,5 +100,7 @@ public class MovieListFragment extends Fragment {
                 call.cancel();
             }
         });
+
+        this.listType = listType;
     }
 }

@@ -29,7 +29,7 @@ public class MovieSearchAdapter extends RecyclerView.Adapter<MovieSearchAdapter.
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-//        holder.mIdView.setText(mValues.get(position).title);
+//        holder.mIdView.setText();
         holder.mContentView.setText(mValues.get(position).title);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {

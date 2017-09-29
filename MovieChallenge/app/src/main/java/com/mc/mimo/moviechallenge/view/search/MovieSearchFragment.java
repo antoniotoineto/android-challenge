@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.mc.mimo.moviechallenge.R;
 import com.mc.mimo.moviechallenge.api.APIClient;
@@ -30,8 +31,11 @@ public class MovieSearchFragment extends Fragment {
 
     private List<Result> results = new ArrayList<>();
     private MovieSearchAdapter adapter = new MovieSearchAdapter(results);
-
     private APIInterface apiInterface;
+
+    private View listView;
+    private View loadingPanel;
+    private EditText inputSearch;
 
     public MovieSearchFragment() {
     }
@@ -51,25 +55,6 @@ public class MovieSearchFragment extends Fragment {
 
         apiInterface = APIClient.getClient().create(APIInterface.class);
 
-        Call<Search> call = apiInterface.doSearch("jack");
-
-
-
-        call.enqueue(new Callback<Search>() {
-            @Override
-            public void onResponse(Call<Search> call, Response<Search> response) {
-                results.clear();
-                results.addAll(response.body().results);
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Call<Search> call, Throwable t) {
-                call.cancel();
-            }
-        });
-
-
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -80,7 +65,6 @@ public class MovieSearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_moviesearch_list, container, false);
 
-        // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
@@ -91,6 +75,50 @@ public class MovieSearchFragment extends Fragment {
             }
             recyclerView.setAdapter(new MovieSearchAdapter(results));
         }
+
+        this.listView = view.findViewById(R.id.listSearch);
+        this.loadingPanel = view.findViewById(R.id.loadingPanelSearch);
+        this.inputSearch = view.findViewById(R.id.inputSearch);
+
+        view.findViewById(R.id.buttonSearch).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO Tratar queries inválidas
+                String query = inputSearch.getText().toString();
+                showLoading();
+                search(query);
+            }
+        });
+
         return view;
+    }
+
+    private void search(String query) {
+        Call<Search> call = apiInterface.doSearch(query);
+
+        call.enqueue(new Callback<Search>() {
+            @Override
+            public void onResponse(Call<Search> call, Response<Search> response) {
+                results.clear();
+                results.addAll(response.body().results);
+                adapter.notifyDataSetChanged();
+                showList();
+            }
+
+            @Override
+            public void onFailure(Call<Search> call, Throwable t) {
+                call.cancel();
+            }
+        });
+    }
+
+    private void showLoading() {
+        this.loadingPanel.setVisibility(View.VISIBLE);
+        this.listView.setVisibility(View.GONE);
+    }
+
+    private void showList() {
+        this.loadingPanel.setVisibility(View.GONE);
+        this.listView.setVisibility(View.VISIBLE);
     }
 }

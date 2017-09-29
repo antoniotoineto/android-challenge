@@ -43,7 +43,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // ITENT DETAILS
+                // TODO Exibir mais detalhes do filme
                 Intent i = new Intent(v.getContext(), MovieDetailsActivity.class);
                 i.putExtra("movie_id", result.id);
                 v.getContext().startActivity(i);
