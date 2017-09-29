@@ -9,8 +9,8 @@ import android.widget.TextView;
 import com.mc.mimo.moviechallenge.R;
 import com.mc.mimo.moviechallenge.api.APIClient;
 import com.mc.mimo.moviechallenge.api.APIInterface;
-import com.mc.mimo.moviechallenge.helper.LoadImageTask;
 import com.mc.mimo.moviechallenge.pojo.moviedetails.Movie;
+import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,7 +56,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         title.setText(movie.title);
         movieOverview.setText(movie.overview);
-        new LoadImageTask(posterImage).execute(APIClient.IMAGEBASEURL + movie.posterPath);
+        Picasso.with(posterImage.getContext()).load(APIClient.IMAGEBASEURL + movie.posterPath).into(posterImage);
 
         findViewById(R.id.loadingPanel).setVisibility(View.GONE);
         findViewById(R.id.movieInfoPanel).setVisibility(View.VISIBLE);

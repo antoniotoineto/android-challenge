@@ -10,10 +10,12 @@ import android.widget.TextView;
 
 import com.mc.mimo.moviechallenge.R;
 import com.mc.mimo.moviechallenge.api.APIClient;
-import com.mc.mimo.moviechallenge.helper.LoadImageTask;
 import com.mc.mimo.moviechallenge.pojo.movielist.Result;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import static com.mc.mimo.moviechallenge.R.id.imageView;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.ViewHolder> {
 
@@ -27,6 +29,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_nowplaying, parent, false);
+
         return new ViewHolder(view);
     }
 
@@ -35,7 +38,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
 
         final Result result = mValues.get(position);
         if (result.posterPath != null) {
-            new LoadImageTask(holder.mImageView).execute(APIClient.IMAGEBASEURL + result.posterPath);
+            Picasso.with(holder.mImageView.getContext()).load(APIClient.IMAGEBASEURL + result.posterPath).into(holder.mImageView);
         }
 
         holder.mMovieTitleView.setText(mValues.get(position).title);
@@ -67,7 +70,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mImageView = view.findViewById(R.id.imageView);
+            mImageView = view.findViewById(imageView);
             mMovieTitleView = view.findViewById(R.id.movieTitle);
             mOverviewView = view.findViewById(R.id.movieOverview);
         }
