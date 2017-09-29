@@ -1,5 +1,5 @@
 
-package com.mc.mimo.moviechallenge.pojo;
+package com.mc.mimo.moviechallenge.pojo.search;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

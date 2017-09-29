@@ -1,12 +1,12 @@
 
-package com.mc.mimo.moviechallenge.pojo;
+package com.mc.mimo.moviechallenge.pojo.movielist;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class NowPlaying {
+public class MovieList {
 
     @SerializedName("results")
     @Expose

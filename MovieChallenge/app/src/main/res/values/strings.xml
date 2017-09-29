@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">MovieChallenge</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Em exibição</string>
+    <string name="title_popular">Populares</string>
+    <string name="title_toprated">Bem avaliados</string>
+    <string name="title_search">Buscar</string>
 </resources>

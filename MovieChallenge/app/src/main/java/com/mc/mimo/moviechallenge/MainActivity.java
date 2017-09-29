@@ -7,24 +7,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-import com.mc.mimo.moviechallenge.nowplaying.NowPlayingFragment;
-import com.mc.mimo.moviechallenge.nowplaying.dummy.DummyContent;
-import com.mc.mimo.moviechallenge.pojo.NowPlaying;
+import com.mc.mimo.moviechallenge.view.list.MovieListFragment;
+import com.mc.mimo.moviechallenge.view.search.MovieSearchFragment;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class MainActivity extends AppCompatActivity implements NowPlayingFragment.OnListFragmentInteractionListener {
-
-    private TextView mTextMessage;
+public class MainActivity extends AppCompatActivity {
 
     final FragmentManager fragmentManager = getSupportFragmentManager();
-    final NowPlayingFragment nowPlayingFragment = new NowPlayingFragment();
-    APIInterface apiInterface;
-
+    final MovieListFragment movieListFragment = new MovieListFragment();
+    final MovieSearchFragment movieSearchFragment = new MovieSearchFragment();
+    private int currentFragment = 1;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -33,16 +25,19 @@ public class MainActivity extends AppCompatActivity implements NowPlayingFragmen
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.content, nowPlayingFragment).commit();
-
+                    changToFragment(1);
+                    movieListFragment.changeMovieListDataSet(1);
                     return true;
-                case R.id.navigation_dashboard:
-                    //
+                case R.id.navigation_popular:
+                    changToFragment(1);
+                    movieListFragment.changeMovieListDataSet(2);
                     return true;
-                case R.id.navigation_notifications:
-                    //
+                case R.id.navigation_toprated:
+                    changToFragment(1);
+                    movieListFragment.changeMovieListDataSet(3);
+                    return true;
+                case R.id.navigation_search:
+                    changToFragment(2);
                     return true;
             }
             return false;
@@ -58,25 +53,18 @@ public class MainActivity extends AppCompatActivity implements NowPlayingFragmen
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-
-        apiInterface = APIClient.getClient().create(APIInterface.class);
-
-        Call<NowPlaying> call2 = apiInterface.doGetNowPlaingList("1", "pt-BR");
-        call2.enqueue(new Callback<NowPlaying>() {
-            @Override
-            public void onResponse(Call<NowPlaying> call, Response<NowPlaying> response) {
-                response.code();
-            }
-
-            @Override
-            public void onFailure(Call<NowPlaying> call, Throwable t) {
-                call.cancel();
-            }
-        });
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content, movieListFragment).commit();
     }
 
-    @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
-
+    private void changToFragment(int newFragment) {
+        if (currentFragment != newFragment) {
+            currentFragment = newFragment;
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            switch (newFragment) {
+                case 1: fragmentTransaction.replace(R.id.content, movieListFragment).commit(); break;
+                case 2: fragmentTransaction.replace(R.id.content, movieSearchFragment).commit(); break;
+            }
+        }
     }
 }

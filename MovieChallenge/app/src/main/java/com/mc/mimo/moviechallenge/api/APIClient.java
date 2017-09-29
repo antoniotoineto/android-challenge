@@ -1,4 +1,4 @@
-package com.mc.mimo.moviechallenge;
+package com.mc.mimo.moviechallenge.api;
 
 import java.io.IOException;
 
@@ -16,6 +16,8 @@ public class APIClient {
 
     private static Retrofit retrofit = null;
     private static String APIKEY = "a10bd6770c90cc6c8af80c64848be453";
+    public static String BASEURL = "https://api.themoviedb.org/3/";
+    public static String IMAGEBASEURL = "https://image.tmdb.org/t/p/w300";
 
     public static Retrofit getClient() {
 
@@ -44,7 +46,7 @@ public class APIClient {
 
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.themoviedb.org/3/")
+                .baseUrl(BASEURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
